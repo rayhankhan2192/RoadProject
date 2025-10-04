@@ -1,2 +1,5 @@
 venv/
 TrainedModel/
+.env
+__pycache__/
+media/
