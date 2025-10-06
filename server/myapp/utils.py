@@ -14,7 +14,7 @@ import cv2
 from decouple import config
 from django.conf import settings
 from ultralytics import YOLO
-import keras
+#import keras
 
 IMAGE_SIZE = 224
 CLASS_NAMES = ['Crack', 'Pothole', 'Surface Erosion']
