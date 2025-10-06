@@ -14,6 +14,7 @@ import cv2
 from decouple import config
 from django.conf import settings
 from ultralytics import YOLO
+import keras
 
 IMAGE_SIZE = 224
 CLASS_NAMES = ['Crack', 'Pothole', 'Surface Erosion']
@@ -34,7 +35,7 @@ def get_model1():
                     raise RuntimeError("MODEL_PATH1 is not set in your environment/.env")
                 if not os.path.exists(MODEL_PATH1):
                     raise FileNotFoundError(f"MODEL_PATH1 not found: {MODEL_PATH1}")
-                _model = tf.keras.models.load_model(MODEL_PATH1, compile=MODEL_COMPILE)
+                _model = keras.models.load_model(MODEL_PATH1, compile=MODEL_COMPILE)
     return _model
 
 def get_model2():
@@ -47,7 +48,7 @@ def get_model2():
                     raise RuntimeError("MODEL_PATH1 is not set in your environment/.env")
                 if not os.path.exists(MODEL_PATH1):
                     raise FileNotFoundError(f"MODEL_PATH1 not found: {MODEL_PATH1}")
-                _model = tf.keras.models.load_model(MODEL_PATH1, compile=MODEL_COMPILE)
+                _model = keras.models.load_model(MODEL_PATH1, compile=MODEL_COMPILE)
     return _model
 # Image saving
 def save_uploaded_file_exact(file_obj) -> str:
@@ -68,7 +69,6 @@ def save_uploaded_file_exact(file_obj) -> str:
 # Lighting / brightness
 def get_lighting_condition(arr_0_255: np.ndarray) -> Tuple[str, float]:
     """Compute brightness (0..255) and map to a lighting label."""
-    tensor = tf.convert_to_tensor(arr_0_255, dtype=tf.float32)
     grayscale = tf.image.rgb_to_grayscale(tensor)
     brightness = float(tf.reduce_mean(grayscale).numpy())  # 0..255
 
