@@ -73,7 +73,8 @@ class DetectView(APIView):
 
         # Local prediction
         try:
-            predicted_class, confidence, lighting, brightness = predict_image(img)
+            # predicted_class, confidence, lighting, brightness = predict_image(img)
+            pass
         except Exception as e:
             return Response({"error": f"Prediction failed: {e}"}, status=500)
 
@@ -91,17 +92,21 @@ class DetectView(APIView):
         image_original_url = os.path.join(settings.MEDIA_URL, "uploads", image.name)
         image_detected_url = os.path.join(settings.MEDIA_URL, "detected", result["detected_filename"])
 
+        predicted_class = None
+        confidence = None
+        lighting = None
+
         # Combine and return
         return Response(
-            {
-                "prediction": {
-                    "class": predicted_class,
-                    "confidence": confidence,
-                    "lighting": lighting,
-                },
-                "road_damage": result,
-                "image_original": image_original_url,
-                "image_detected": image_detected_url,
-            },
-            status=200,
-        )
+    {
+        "prediction": {
+            "class": predicted_class if predicted_class is not None else None,
+            "confidence": confidence if confidence is not None else None,
+            "lighting": lighting if lighting is not None else None,
+        },
+        "road_damage": result,
+        "image_original": image_original_url,
+        "image_detected": image_detected_url,
+    },
+    status=200,
+)

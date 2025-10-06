@@ -6,7 +6,7 @@ from typing import Tuple
 os.environ.setdefault("TF_ENABLE_ONEDNN_OPTS", "0")
 
 import numpy as np
-import tensorflow as tf
+#import tensorflow as tf
 from PIL import Image
 import openai
 from typing import Tuple, List
